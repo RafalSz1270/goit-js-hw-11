@@ -10,6 +10,7 @@ const searchQueryInput = document.getElementById('searchQuery');
 const searchButton = document.getElementById('searchButton');
 const gallery = document.getElementById('gallery');
 const loader = document.querySelector('.loader');
+const form = document.querySelector('.form');
 
 const fetchImages = async (query) => {
   loader.style.display = 'block';
@@ -39,6 +40,7 @@ const displayImages = (images) => {
   gallery.innerHTML = '';
 
   if (images.length === 0) {
+    
     iziToast.info({
       title: 'Info',
       message: 'Sorry, there are no images matching your search query. Please try again!'
@@ -49,7 +51,7 @@ const displayImages = (images) => {
   const imageItems = images.map(image => {
     return `
       <a href="${image.largeImageURL}" class="gallery-item">
-        <img src="${image.webformatURL}" alt="${image.tags}" />
+        <img class="picture" src="${image.webformatURL}" alt="${image.tags}" />
         <p>Likes: ${image.likes} Views: ${image.views} Comments: ${image.comments} Downloads: ${image.downloads}</p>
       </a>
     `;
@@ -63,6 +65,7 @@ const displayImages = (images) => {
 searchButton.addEventListener('click', async () => {
   const query = searchQueryInput.value.trim();
   if (!query) {
+    gallery.innerHTML = '';
     iziToast.warning({
       title: 'Warning',
       message: 'Please enter a search query.'
@@ -73,3 +76,23 @@ searchButton.addEventListener('click', async () => {
   const images = await fetchImages(query);
   displayImages(images);
 });
+
+// ---------NA click działa a na submit nie----------------
+
+
+// searchButton.addEventListener('submit', async (event) => {
+//   event.preventDefault(); 
+
+//   const query = searchQueryInput.value.trim();
+//   if (!query) {
+//     gallery.innerHTML = '';
+//     iziToast.warning({
+//       title: 'Warning',
+//       message: 'Please enter a search query.'
+//     });
+//     return;
+//   }
+
+//   const images = await fetchImages(query);
+//   displayImages(images);
+// });

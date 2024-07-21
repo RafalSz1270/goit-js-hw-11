@@ -14,8 +14,11 @@
  }
 
  .gallery-item {
-     width: 200px;
+    width: 200px;
      text-align: center;
+ }
+ .picture {
+    width: 200px;
  }
 
  .loader {
